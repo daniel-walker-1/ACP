@@ -4,50 +4,62 @@
  *  Developer: Team 1
  *  Date: February 12, 2021
  */
-// import statements
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class Database_Class {
 
-    /**
-     * Instance and Field variables
-     */
-    private Object listAccountNumbers;
-    private Object maintainAuditLog;
-    private Object exportWholeDatabaseAsCSV;
-    private Object exportSingleUserAsCSV;
+	// Variables
+	private String url = "jdbc:mysql://localhost:3306/MySql";
+	private String username = "root";
+	private String password = "@@t45zr)11";
 
-    /**
-     * Constructors
-     */
-    public Database_Class() {
-    }
+	// Constructor
+	public Database_Class() {
 
-    /**
-     * Getters
-     */
-    /**
-     * Setters
-     */
-    /**
-     * Methods
-     */
-    public void maintainAuditLog() {
-    }
+	}
 
-    public void exportWholeDatabaseAsCSV() {
-    }
+	public Connection getConnection() throws SQLException {
 
-    public void exportSingleUserAsCSV() {
-    }
+		Connection conn = null;
 
-    public void specifyExportFilepath() {
-    }
+		try {
 
-    public void exportEmailContacts() {
-    }
+			conn = DriverManager.getConnection(url, username, password);
 
-    public void deleteSelectedUser() {
-    }
+		} catch (SQLException e) {
+			throw e;
+		} finally {
 
-    public void filterData() {
-    }
+			// close();
+
+		}
+
+		return conn;
+
+	}
+
+	public void maintainAuditLog() {		
+	}
+
+	public void exportWholeDatabaseAsCSV() {		
+	}
+
+	public void exportSingleUserAsCSV() {		
+	}
+
+	public void specifyExportFilepath() {		
+	}
+
+	public void exportEmailContacts() {		
+	}
+
+	public void deleteSelectedUser() {		
+	}
+
+	public void filterData() {		
+	}
+
 }
