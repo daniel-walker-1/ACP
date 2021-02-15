@@ -23,6 +23,10 @@ public class Base_Class {
     public String localTimeString;
     public Boolean rejectForm = false;
     public int creditCardNumber = 0;
+    public String ccDate;
+    public int cvvCode = 999;
+    public String password;
+    public Boolean validForm = false;
 
     /**
      * Constructors
@@ -97,57 +101,78 @@ public class Base_Class {
                     String cCNString = Integer.toString(ccn);
                     Pattern regex = Pattern.compile("[^A-Za-z0-9]");
                     Matcher matcher = regex.matcher(cCNString);
-                    Boolean match = false;
+                    boolean matches = matcher.matches();
                     if (cCNString.contains(".")) {
                         JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number cannot contain a decimal");
                         rejectForm = true;
-                    } else if (match == true) {
+                    } else if (matches == false) {
                         JOptionPane.showMessageDialog(null, "Invalid credit card number, the credit card number cannot contain a special characters");
                         rejectForm = true;
                     }
                 }
-
+            } else if (ccDate.length() > 0) {
+                Pattern regex = Pattern.compile("[^0-90-9]" + " " + "[^A-ZA-ZA-Z]" + " " + "[^0-90-90-90-9]");
+                Matcher matcher = regex.matcher(ccDate);
+                boolean matches = matcher.matches();
+                if (matches == false) {
+                    JOptionPane.showMessageDialog(null, "Invalid credit card date format, the date format is DD MMM YYYY");
+                    rejectForm = true;
+                }
+            } else if (cvvCode > 0) {
+                String cvvString = Integer.toString(cvvCode);
+                Pattern regex = Pattern.compile("[^0-90-90-9]");
+                Matcher matcher = regex.matcher(cvvString);
+                boolean matches = matcher.matches();
+                if (matches == false) {
+                    JOptionPane.showMessageDialog(null, "Invalid CVV Code");
+                    rejectForm = true;
+                }
+            } else if (cvvCode <= 0) {
+                JOptionPane.showMessageDialog(null, "Invalid CVV Code");
+                rejectForm = true;
+            } else if (password.length() <= 7) {
+                JOptionPane.showMessageDialog(null, "Invalid password, password must be at least 8 characters");
+                rejectForm = true;
+            } else if (password.length() >= 129) {
+                JOptionPane.showMessageDialog(null, "Invalid password, password must be less than or equal to 128 characters");
+                rejectForm = true;
+            } else if (password.length() >= 8 || password.length() <= 128) {
+                // query the database to see if it is in the list of common passwords
+                // if it is: JOptionPane.showMessageDialog(null, "Invalid password, password is found on a list of common passwords");
+                // and rejectForm = true;
+            } else {
+                validForm = true;
+                JOptionPane.showMessageDialog(null, "Welcome " + userName);
             }
 
-//            11. Enter the credit card date
-            //            12. Enter the date wth a decimal
-            //            13. Enter the date with a character
-            //            14. Enter the CVV code
-            //            15. Enter a 4 digit CVV code
-            //            16. Enter a 2 digit CVV code
-            //            17. Enter a decimal CVV code
-            //            18. Enter the CVV code with a letter
-            //            19. Enter a password of 8 characters
-            //            20. Enter a password of 7 characters
-            //            21. Enter a password of 128 characters
-            //            22. Enter a password of 129 characters
-            //            23. Enter a password found in the database of common passwords
-        
-    
-
-        
-    
-
-        
-    
-
-        
-    
-
-        
-    
-
-    "
         }
     }
 
     public void storeFormDataInSQLDatabase() {
+        if (validForm == true) {
+            // send userName to the database;
+            // send loginCount  to the database;
+            // send loyaltyPoints to the database;
+            // send localDateString to the database?;
+            // send localTimeString to the database?;
+            // send creditCardNumber to the database;
+            // send ccDate to the database;
+            // send cvvCode to the database;
+            // send password to the database;
+        }
     }
 
     public void sendEmail() {
+        if (validForm == true) {
+            // tell Email_Engine to send the email
+        }
     }
 
     public void assignAccountNumber() {
+        if (validForm == true) {
+            // query the database to find database length
+            // the account number is database length + 1
+        }
     }
 
     public void deleteUser() {
